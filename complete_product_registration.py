@@ -31,7 +31,7 @@ if st.sidebar.button("📋 Produtos", use_container_width=True):
 
 pagina = st.session_state.pagina_atual
 
-st.title("📦 Gestão de Produtos")
+st.title("📦 Sistema de Gestão")
 
 # =========================
 # Página: Lista de Produtos
