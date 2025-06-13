@@ -4,11 +4,11 @@ import streamlit as st
 if "produtos" not in st.session_state:
     st.session_state.produtos = []
 
-if "indice_edicao" not in st.session_state:
-    st.session_state.indice_edicao = None
+if "indice_edicao_produto" not in st.session_state:
+    st.session_state.indice_edicao_produto = None
 
-if "indice_visualizacao" not in st.session_state:
-    st.session_state.indice_visualizacao = None
+if "indice_visualizacao_produto" not in st.session_state:
+    st.session_state.indice_visualizacao_produto = None
 
 if "pagina_atual" not in st.session_state:
     st.session_state.pagina_atual = "Produtos"
@@ -62,12 +62,12 @@ if pagina == "Produtos":
                 col_vis, col_edi = st.columns(2)
                 with col_vis:
                     if st.button("👁️ Visualizar", key=f"visualizar_{indice}"):
-                        st.session_state.indice_visualizacao = indice
+                        st.session_state.indice_visualizacao_produto = indice
                         st.session_state.pagina_atual = "Visualizar Produto"
                         st.rerun()
                 with col_edi:
                     if st.button("✏️ Editar", key=f"editar_{indice}"):
-                        st.session_state.indice_edicao = indice
+                        st.session_state.indice_edicao_produto = indice
                         st.session_state.pagina_atual = "Editar Produto"
                         st.rerun()
 
@@ -104,7 +104,7 @@ elif pagina == "Adicionar Produto":
 # Página: Editar Produto
 # =========================
 elif pagina == "Editar Produto":
-    indice = st.session_state.indice_edicao
+    indice = st.session_state.indice_edicao_produto
     if indice is not None and indice < len(st.session_state.produtos):
         produto = st.session_state.produtos[indice]
         st.subheader("✏️ Editar Produto")
@@ -126,16 +126,16 @@ elif pagina == "Editar Produto":
                 st.session_state.produtos[indice]["nome"] = novo_nome
                 st.session_state.produtos[indice]["preco"] = novo_preco
                 st.success("Produto atualizado com sucesso!")
-                st.session_state.indice_edicao = None
+                st.session_state.indice_edicao_produto = None
                 st.session_state.pagina_atual = "Produtos"
                 st.rerun()
             elif cancelar:
-                st.session_state.indice_edicao = None
+                st.session_state.indice_edicao_produto = None
                 st.session_state.pagina_atual = "Produtos"
                 st.rerun()
     else:
         st.error("Produto não encontrado.")
-        st.session_state.indice_edicao = None
+        st.session_state.indice_edicao_produto = None
         st.session_state.pagina_atual = "Produtos"
         st.rerun()
 
@@ -143,18 +143,18 @@ elif pagina == "Editar Produto":
 # Página: Visualizar Produto
 # =========================
 elif pagina == "Visualizar Produto":
-    indice = st.session_state.indice_visualizacao
+    indice = st.session_state.indice_visualizacao_produto
     if indice is not None and indice < len(st.session_state.produtos):
         produto = st.session_state.produtos[indice]
         st.subheader("👁️ Detalhes do Produto")
         st.markdown(f"**Nome:** {produto['nome']}")
         st.markdown(f"**Preço:** {formatar_moeda(produto['preco'])}")
         if st.button("🔙 Voltar"):
-            st.session_state.indice_visualizacao = None
+            st.session_state.indice_visualizacao_produto = None
             st.session_state.pagina_atual = "Produtos"
             st.rerun()
     else:
         st.error("Produto não encontrado.")
-        st.session_state.indice_visualizacao = None
+        st.session_state.indice_visualizacao_produto = None
         st.session_state.pagina_atual = "Produtos"
         st.rerun()
