@@ -210,16 +210,16 @@ elif pagina == "Excluir Produto":
                 st.success(
                     f"Produto '**{produto['nome']}**' excluído com sucesso!"
                 )
-                st.session_state.produto_a_excluir_indice = None
+                st.session_state.indice_exclusao_produto = None
                 st.session_state.pagina_atual = "Produtos"
                 st.rerun()
         with col_canc_exc:
             if st.button("❌ Cancelar", use_container_width=True):
-                st.session_state.produto_a_excluir_indice = None
+                st.session_state.indice_exclusao_produto = None
                 st.session_state.pagina_atual = "Produtos"
                 st.rerun()
     else:
         st.error("Produto para exclusão não encontrado.")
-        st.session_state.produto_a_excluir_indice = None
+        st.session_state.indice_exclusao_produto = None
         st.session_state.pagina_atual = "Produtos"
         st.rerun()
